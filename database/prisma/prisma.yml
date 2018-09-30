@@ -1,6 +1,0 @@
-# endpoint: http://localhost:4466/authorizationApi/dev
-# datamodel: authorizationApi.graphql
-# hooks:
-#   post-deploy:
-#     - graphql get-schema --project database
-#     - graphql prepare

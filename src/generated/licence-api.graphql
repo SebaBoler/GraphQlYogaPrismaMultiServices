@@ -1,0 +1,895 @@
+# source: http://localhost:4466/licence/dev
+# timestamp: Sun Sep 30 2018 22:18:29 GMT+0200 (czas środkowoeuropejski letni)
+
+type AggregateLicence {
+  count: Int!
+}
+
+type AggregateModule {
+  count: Int!
+}
+
+type AggregateModuleType {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+scalar DateTime
+
+"""Raw JSON value"""
+scalar Json
+
+type Licence implements Node {
+  id: ID!
+  ownerId: ID
+  numberOfUser: Int!
+  licenceFrom: DateTime!
+  licenceTo: DateTime
+  modules(where: ModuleWhereInput, orderBy: ModuleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Module!]
+}
+
+"""A connection to a list of items."""
+type LicenceConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [LicenceEdge]!
+  aggregate: AggregateLicence!
+}
+
+input LicenceCreateInput {
+  ownerId: ID
+  numberOfUser: Int!
+  licenceFrom: DateTime!
+  licenceTo: DateTime
+  modules: ModuleCreateManyWithoutLicenceIdInput
+}
+
+input LicenceCreateOneWithoutModulesInput {
+  create: LicenceCreateWithoutModulesInput
+  connect: LicenceWhereUniqueInput
+}
+
+input LicenceCreateWithoutModulesInput {
+  ownerId: ID
+  numberOfUser: Int!
+  licenceFrom: DateTime!
+  licenceTo: DateTime
+}
+
+"""An edge in a connection."""
+type LicenceEdge {
+  """The item at the end of the edge."""
+  node: Licence!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum LicenceOrderByInput {
+  id_ASC
+  id_DESC
+  ownerId_ASC
+  ownerId_DESC
+  numberOfUser_ASC
+  numberOfUser_DESC
+  licenceFrom_ASC
+  licenceFrom_DESC
+  licenceTo_ASC
+  licenceTo_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type LicencePreviousValues {
+  id: ID!
+  ownerId: ID
+  numberOfUser: Int!
+  licenceFrom: DateTime!
+  licenceTo: DateTime
+}
+
+type LicenceSubscriptionPayload {
+  mutation: MutationType!
+  node: Licence
+  updatedFields: [String!]
+  previousValues: LicencePreviousValues
+}
+
+input LicenceSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LicenceSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LicenceSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LicenceSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: LicenceWhereInput
+}
+
+input LicenceUpdateInput {
+  ownerId: ID
+  numberOfUser: Int
+  licenceFrom: DateTime
+  licenceTo: DateTime
+  modules: ModuleUpdateManyWithoutLicenceIdInput
+}
+
+input LicenceUpdateOneRequiredWithoutModulesInput {
+  create: LicenceCreateWithoutModulesInput
+  connect: LicenceWhereUniqueInput
+  update: LicenceUpdateWithoutModulesDataInput
+  upsert: LicenceUpsertWithoutModulesInput
+}
+
+input LicenceUpdateWithoutModulesDataInput {
+  ownerId: ID
+  numberOfUser: Int
+  licenceFrom: DateTime
+  licenceTo: DateTime
+}
+
+input LicenceUpsertWithoutModulesInput {
+  update: LicenceUpdateWithoutModulesDataInput!
+  create: LicenceCreateWithoutModulesInput!
+}
+
+input LicenceWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LicenceWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LicenceWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LicenceWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  ownerId: ID
+
+  """All values that are not equal to given value."""
+  ownerId_not: ID
+
+  """All values that are contained in given list."""
+  ownerId_in: [ID!]
+
+  """All values that are not contained in given list."""
+  ownerId_not_in: [ID!]
+
+  """All values less than the given value."""
+  ownerId_lt: ID
+
+  """All values less than or equal the given value."""
+  ownerId_lte: ID
+
+  """All values greater than the given value."""
+  ownerId_gt: ID
+
+  """All values greater than or equal the given value."""
+  ownerId_gte: ID
+
+  """All values containing the given string."""
+  ownerId_contains: ID
+
+  """All values not containing the given string."""
+  ownerId_not_contains: ID
+
+  """All values starting with the given string."""
+  ownerId_starts_with: ID
+
+  """All values not starting with the given string."""
+  ownerId_not_starts_with: ID
+
+  """All values ending with the given string."""
+  ownerId_ends_with: ID
+
+  """All values not ending with the given string."""
+  ownerId_not_ends_with: ID
+  numberOfUser: Int
+
+  """All values that are not equal to given value."""
+  numberOfUser_not: Int
+
+  """All values that are contained in given list."""
+  numberOfUser_in: [Int!]
+
+  """All values that are not contained in given list."""
+  numberOfUser_not_in: [Int!]
+
+  """All values less than the given value."""
+  numberOfUser_lt: Int
+
+  """All values less than or equal the given value."""
+  numberOfUser_lte: Int
+
+  """All values greater than the given value."""
+  numberOfUser_gt: Int
+
+  """All values greater than or equal the given value."""
+  numberOfUser_gte: Int
+  licenceFrom: DateTime
+
+  """All values that are not equal to given value."""
+  licenceFrom_not: DateTime
+
+  """All values that are contained in given list."""
+  licenceFrom_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  licenceFrom_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  licenceFrom_lt: DateTime
+
+  """All values less than or equal the given value."""
+  licenceFrom_lte: DateTime
+
+  """All values greater than the given value."""
+  licenceFrom_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  licenceFrom_gte: DateTime
+  licenceTo: DateTime
+
+  """All values that are not equal to given value."""
+  licenceTo_not: DateTime
+
+  """All values that are contained in given list."""
+  licenceTo_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  licenceTo_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  licenceTo_lt: DateTime
+
+  """All values less than or equal the given value."""
+  licenceTo_lte: DateTime
+
+  """All values greater than the given value."""
+  licenceTo_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  licenceTo_gte: DateTime
+  modules_every: ModuleWhereInput
+  modules_some: ModuleWhereInput
+  modules_none: ModuleWhereInput
+}
+
+input LicenceWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Module implements Node {
+  id: ID!
+  licenceId(where: LicenceWhereInput): Licence!
+  moduletypeId(where: ModuleTypeWhereInput): ModuleType!
+}
+
+"""A connection to a list of items."""
+type ModuleConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ModuleEdge]!
+  aggregate: AggregateModule!
+}
+
+input ModuleCreateInput {
+  licenceId: LicenceCreateOneWithoutModulesInput!
+  moduletypeId: ModuleTypeCreateOneInput!
+}
+
+input ModuleCreateManyWithoutLicenceIdInput {
+  create: [ModuleCreateWithoutLicenceIdInput!]
+  connect: [ModuleWhereUniqueInput!]
+}
+
+input ModuleCreateWithoutLicenceIdInput {
+  moduletypeId: ModuleTypeCreateOneInput!
+}
+
+"""An edge in a connection."""
+type ModuleEdge {
+  """The item at the end of the edge."""
+  node: Module!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ModuleOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ModulePreviousValues {
+  id: ID!
+}
+
+type ModuleSubscriptionPayload {
+  mutation: MutationType!
+  node: Module
+  updatedFields: [String!]
+  previousValues: ModulePreviousValues
+}
+
+input ModuleSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ModuleSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ModuleSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ModuleSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ModuleWhereInput
+}
+
+type ModuleType implements Node {
+  id: ID!
+  symbol: String!
+  name: String!
+  descr: String
+  isActive: Boolean!
+}
+
+"""A connection to a list of items."""
+type ModuleTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ModuleTypeEdge]!
+  aggregate: AggregateModuleType!
+}
+
+input ModuleTypeCreateInput {
+  symbol: String!
+  name: String!
+  descr: String
+  isActive: Boolean
+}
+
+input ModuleTypeCreateOneInput {
+  create: ModuleTypeCreateInput
+  connect: ModuleTypeWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type ModuleTypeEdge {
+  """The item at the end of the edge."""
+  node: ModuleType!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ModuleTypeOrderByInput {
+  id_ASC
+  id_DESC
+  symbol_ASC
+  symbol_DESC
+  name_ASC
+  name_DESC
+  descr_ASC
+  descr_DESC
+  isActive_ASC
+  isActive_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ModuleTypePreviousValues {
+  id: ID!
+  symbol: String!
+  name: String!
+  descr: String
+  isActive: Boolean!
+}
+
+type ModuleTypeSubscriptionPayload {
+  mutation: MutationType!
+  node: ModuleType
+  updatedFields: [String!]
+  previousValues: ModuleTypePreviousValues
+}
+
+input ModuleTypeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ModuleTypeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ModuleTypeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ModuleTypeSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ModuleTypeWhereInput
+}
+
+input ModuleTypeUpdateDataInput {
+  symbol: String
+  name: String
+  descr: String
+  isActive: Boolean
+}
+
+input ModuleTypeUpdateInput {
+  symbol: String
+  name: String
+  descr: String
+  isActive: Boolean
+}
+
+input ModuleTypeUpdateOneRequiredInput {
+  create: ModuleTypeCreateInput
+  connect: ModuleTypeWhereUniqueInput
+  update: ModuleTypeUpdateDataInput
+  upsert: ModuleTypeUpsertNestedInput
+}
+
+input ModuleTypeUpsertNestedInput {
+  update: ModuleTypeUpdateDataInput!
+  create: ModuleTypeCreateInput!
+}
+
+input ModuleTypeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ModuleTypeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ModuleTypeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ModuleTypeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  symbol: String
+
+  """All values that are not equal to given value."""
+  symbol_not: String
+
+  """All values that are contained in given list."""
+  symbol_in: [String!]
+
+  """All values that are not contained in given list."""
+  symbol_not_in: [String!]
+
+  """All values less than the given value."""
+  symbol_lt: String
+
+  """All values less than or equal the given value."""
+  symbol_lte: String
+
+  """All values greater than the given value."""
+  symbol_gt: String
+
+  """All values greater than or equal the given value."""
+  symbol_gte: String
+
+  """All values containing the given string."""
+  symbol_contains: String
+
+  """All values not containing the given string."""
+  symbol_not_contains: String
+
+  """All values starting with the given string."""
+  symbol_starts_with: String
+
+  """All values not starting with the given string."""
+  symbol_not_starts_with: String
+
+  """All values ending with the given string."""
+  symbol_ends_with: String
+
+  """All values not ending with the given string."""
+  symbol_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  descr: String
+
+  """All values that are not equal to given value."""
+  descr_not: String
+
+  """All values that are contained in given list."""
+  descr_in: [String!]
+
+  """All values that are not contained in given list."""
+  descr_not_in: [String!]
+
+  """All values less than the given value."""
+  descr_lt: String
+
+  """All values less than or equal the given value."""
+  descr_lte: String
+
+  """All values greater than the given value."""
+  descr_gt: String
+
+  """All values greater than or equal the given value."""
+  descr_gte: String
+
+  """All values containing the given string."""
+  descr_contains: String
+
+  """All values not containing the given string."""
+  descr_not_contains: String
+
+  """All values starting with the given string."""
+  descr_starts_with: String
+
+  """All values not starting with the given string."""
+  descr_not_starts_with: String
+
+  """All values ending with the given string."""
+  descr_ends_with: String
+
+  """All values not ending with the given string."""
+  descr_not_ends_with: String
+  isActive: Boolean
+
+  """All values that are not equal to given value."""
+  isActive_not: Boolean
+}
+
+input ModuleTypeWhereUniqueInput {
+  id: ID
+}
+
+input ModuleUpdateInput {
+  licenceId: LicenceUpdateOneRequiredWithoutModulesInput
+  moduletypeId: ModuleTypeUpdateOneRequiredInput
+}
+
+input ModuleUpdateManyWithoutLicenceIdInput {
+  create: [ModuleCreateWithoutLicenceIdInput!]
+  connect: [ModuleWhereUniqueInput!]
+  disconnect: [ModuleWhereUniqueInput!]
+  delete: [ModuleWhereUniqueInput!]
+  update: [ModuleUpdateWithWhereUniqueWithoutLicenceIdInput!]
+  upsert: [ModuleUpsertWithWhereUniqueWithoutLicenceIdInput!]
+}
+
+input ModuleUpdateWithoutLicenceIdDataInput {
+  moduletypeId: ModuleTypeUpdateOneRequiredInput
+}
+
+input ModuleUpdateWithWhereUniqueWithoutLicenceIdInput {
+  where: ModuleWhereUniqueInput!
+  data: ModuleUpdateWithoutLicenceIdDataInput!
+}
+
+input ModuleUpsertWithWhereUniqueWithoutLicenceIdInput {
+  where: ModuleWhereUniqueInput!
+  update: ModuleUpdateWithoutLicenceIdDataInput!
+  create: ModuleCreateWithoutLicenceIdInput!
+}
+
+input ModuleWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ModuleWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ModuleWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ModuleWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  licenceId: LicenceWhereInput
+  moduletypeId: ModuleTypeWhereInput
+}
+
+input ModuleWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createLicence(data: LicenceCreateInput!): Licence!
+  createModule(data: ModuleCreateInput!): Module!
+  createModuleType(data: ModuleTypeCreateInput!): ModuleType!
+  updateLicence(data: LicenceUpdateInput!, where: LicenceWhereUniqueInput!): Licence
+  updateModule(data: ModuleUpdateInput!, where: ModuleWhereUniqueInput!): Module
+  updateModuleType(data: ModuleTypeUpdateInput!, where: ModuleTypeWhereUniqueInput!): ModuleType
+  deleteLicence(where: LicenceWhereUniqueInput!): Licence
+  deleteModule(where: ModuleWhereUniqueInput!): Module
+  deleteModuleType(where: ModuleTypeWhereUniqueInput!): ModuleType
+  upsertLicence(where: LicenceWhereUniqueInput!, create: LicenceCreateInput!, update: LicenceUpdateInput!): Licence!
+  upsertModule(where: ModuleWhereUniqueInput!, create: ModuleCreateInput!, update: ModuleUpdateInput!): Module!
+  upsertModuleType(where: ModuleTypeWhereUniqueInput!, create: ModuleTypeCreateInput!, update: ModuleTypeUpdateInput!): ModuleType!
+  updateManyLicences(data: LicenceUpdateInput!, where: LicenceWhereInput): BatchPayload!
+  updateManyModules(data: ModuleUpdateInput!, where: ModuleWhereInput): BatchPayload!
+  updateManyModuleTypes(data: ModuleTypeUpdateInput!, where: ModuleTypeWhereInput): BatchPayload!
+  deleteManyLicences(where: LicenceWhereInput): BatchPayload!
+  deleteManyModules(where: ModuleWhereInput): BatchPayload!
+  deleteManyModuleTypes(where: ModuleTypeWhereInput): BatchPayload!
+  executeRaw(database: PrismaDatabase, query: String!): Json!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+enum PrismaDatabase {
+  default
+}
+
+type Query {
+  licences(where: LicenceWhereInput, orderBy: LicenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Licence]!
+  modules(where: ModuleWhereInput, orderBy: ModuleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Module]!
+  moduleTypes(where: ModuleTypeWhereInput, orderBy: ModuleTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ModuleType]!
+  licence(where: LicenceWhereUniqueInput!): Licence
+  module(where: ModuleWhereUniqueInput!): Module
+  moduleType(where: ModuleTypeWhereUniqueInput!): ModuleType
+  licencesConnection(where: LicenceWhereInput, orderBy: LicenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LicenceConnection!
+  modulesConnection(where: ModuleWhereInput, orderBy: ModuleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ModuleConnection!
+  moduleTypesConnection(where: ModuleTypeWhereInput, orderBy: ModuleTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ModuleTypeConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  licence(where: LicenceSubscriptionWhereInput): LicenceSubscriptionPayload
+  module(where: ModuleSubscriptionWhereInput): ModuleSubscriptionPayload
+  moduleType(where: ModuleTypeSubscriptionWhereInput): ModuleTypeSubscriptionPayload
+}

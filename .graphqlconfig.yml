@@ -1,36 +1,40 @@
-projects:
-  database:
-    schemaPath: src/generated/prisma.graphql
-    extensions:
-      prisma: database/prisma/prisma.yml
-  authorizationApi:
-    schemaPath: database/authorizationApi/schema.graphql
-    extensions:
-      endpoints:
-        default: http://lolcahost:5000
-  licenceApi:
-    schemaPath: database/licenceApi/schema.graphql
-    extensions:
-      endpoints:
-        default: http://localhost:5010
-
-
 # projects:
 #   database:
 #     schemaPath: src/generated/prisma.graphql
 #     extensions:
 #       prisma: database/prisma/prisma.yml
-#       codegen:
-#         -  generator: prisma-binding
-#            language: javascript
-#            output:
-#             binding: src/generated/prisma.js
 #   authorizationApi:
-#     schemaPath: src/generated/authorizationApi.graphql
+#     schemaPath: database/authorizationApi/datamodel.graphql
 #     extensions:
-#       prisma: database/authorizationApi/prisma.yml
-#       codegen:
-#         - generator: prisma-binding
-#           language: javascript
-#           output:
-#             binding: src/generated/authorizationApi.js
+#       endpoints:
+#         default: http://localhost:4466/Authorization/dev
+#   licenceApi:
+#     schemaPath: database/licenceApi/datamodel.graphql
+#     extensions:
+#       endpoints:
+#         default: http://localhost:4466/Licence/dev
+
+projects:
+  licence-api:
+    schemaPath: src/generated/licence-api.graphql
+    extensions:
+      prisma: database/licence-api/prisma.yml
+      codegen:
+        - generator: prisma-binding
+          language: javascript
+          output:
+            binding: src/generated/licence-api.js
+  authorization-api:
+    schemaPath: src/generated/authorization-api.graphql
+    extensions:
+      prisma: database/authorization-api/prisma.yml
+      codegen:
+        - generator: prisma-binding
+          language: javascript
+          output:
+            binding: src/generated/authorization-api.js
+  app:
+    schemaPath: src/schema.graphql
+    extensions:
+      endpoints:
+        default: http://localhost:4000

@@ -1,0 +1,96 @@
+# import User from './generated/authorization-api.graphql'
+# import Licence from './generated/licence-api.graphql'
+# import Module from './generated/licence-api.graphql'
+# import ModuleType from './generated/licence-api.graphql'
+
+type Query {
+  user(where: UserWhereUniqueInput!): User
+  users(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [User]!
+  licences(
+    where: LicenceWhereInput
+    orderBy: LicenceOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Licence]!
+  modules(
+    where: ModuleWhereInput
+    orderBy: ModuleOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Module]!
+  moduleTypes(
+    where: ModuleTypeWhereInput
+    orderBy: ModuleTypeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [ModuleType]!
+  licence(where: LicenceWhereUniqueInput!): Licence
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createLicence(data: LicenceCreateInput!): Licence!
+  createModule(data: ModuleCreateInput!): Module!
+  createModuleType(data: ModuleTypeCreateInput!): ModuleType!
+  deleteLicence(where: LicenceWhereUniqueInput!): Licence
+  deleteModule(where: ModuleWhereUniqueInput!): Module
+  deleteModuleType(where: ModuleTypeWhereUniqueInput!): ModuleType
+}
+
+type User implements Node {
+  id: ID!
+  ownerId: ID
+  name: String
+  email: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Licence implements Node {
+  id: ID!
+  ownerId: ID
+  numberOfUser: Int!
+  licenceFrom: DateTime!
+  licenceTo: DateTime
+  modules(
+    where: ModuleWhereInput
+    orderBy: ModuleOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Module!]
+}
+
+type Module implements Node {
+  id: ID!
+  licenceId(where: LicenceWhereInput): Licence!
+  moduletypeId(where: ModuleTypeWhereInput): ModuleType!
+}
+
+type ModuleType implements Node {
+  id: ID!
+  symbol: String!
+  name: String!
+  descr: String
+  isActive: Boolean!
+}
