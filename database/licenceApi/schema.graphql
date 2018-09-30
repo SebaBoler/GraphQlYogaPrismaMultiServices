@@ -1,0 +1,22 @@
+type Licence {
+  id: ID! @unique
+  ownerId: ID
+  numberOfUser: Int!
+  licenceFrom: DateTime!
+  licenceTo: DateTime
+  modules: [Module!]!
+}
+
+type Module {
+  id: ID! @unique
+  licenceId: Licence!
+  moduletypeId: ModuleType!
+}
+
+type ModuleType {
+  id: ID! @unique
+  symbol: String!
+  name: String!
+  descr: String
+  isActive: Boolean! @default(value: true)
+}

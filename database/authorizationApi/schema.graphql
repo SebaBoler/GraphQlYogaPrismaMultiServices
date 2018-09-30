@@ -1,0 +1,17 @@
+type User {
+  id: ID! @unique
+  ownerId: ID
+  name: String
+  email: String! @unique
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Contractor {
+  id: ID! @unique
+  symbol: String!
+  name: String!
+  nip: Int!
+  regon: Int
+}
