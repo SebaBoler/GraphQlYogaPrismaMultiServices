@@ -1,0 +1,12 @@
+mutation {
+  first: createUser(
+    data: {
+      ownerId: "01"
+      email: "admin@4ls.pl"
+      password: "$2a$12$SWaFZXJbvFM/NK2qIbbktOaMU4ideimVhIqpO/HxNSRGMpKDrXBHi" # "admin"
+      name: "Admin"
+    }
+  ) {
+    id
+  }
+}

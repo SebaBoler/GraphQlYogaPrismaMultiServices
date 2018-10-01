@@ -1,0 +1,39 @@
+# import User from './generated/authorization-api.graphql'
+# import Licence, Module, ModuleType from './generated/licence-api.graphql'
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createLicence(data: LicenceCreateInput!): Licence!
+  createModule(data: ModuleCreateInput!): Module!
+  createModuleType(data: ModuleTypeCreateInput!): ModuleType!
+  deleteLicence(where: LicenceWhereUniqueInput!): Licence
+  deleteModule(where: ModuleWhereUniqueInput!): Module
+  deleteModuleType(where: ModuleTypeWhereUniqueInput!): ModuleType
+  login(email: String!, password: String!): AuthPayload!
+  register(email: String!, password: String!, name: String!): RegisterUser!
+}
+
+type AuthPayload {
+  token: String
+  user: User
+  # errors: [CustomError]
+}
+
+type CustomError {
+  key: String
+  message: String
+}
+
+type RegisterUser {
+  user: User!
+}
+
+# type User implements Node {
+#   id: ID!
+#   ownerId: ID
+#   name: String
+#   email: String!
+#   password: String!
+#   createdAt: DateTime!
+#   updatedAt: DateTime!
+# }
